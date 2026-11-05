@@ -1,0 +1,9 @@
+{
+  "new_http_status": 200,
+  "new_title_present": true,
+  "new_video_player_present": true,
+  "new_challenge_reference_present": true,
+  "new_failure_disclosure_present": true,
+  "old_revision_link_present": true,
+  "old_superseded_label_present": true
+}

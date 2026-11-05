@@ -4,7 +4,7 @@
 
 A free-standing Unitree G1 performs a 36-second lion-dance-inspired routine: a greeting bow, overhead reaches, sweeping looks, alternating paw gestures, a festival fan and a final blessing. The dynamic edition replaces the restrained first demonstration with substantially larger motor-driven movements and a full-frame 1080p presentation.
 
-Created by Hiroaki Machida, with coding-agent assistance, for [HIM Open Build Challenge](https://arena.himrobotics.com/challenges/open-build). [Original v1 Arena entry](https://arena.himrobotics.com/uploads/source_54b57ede9b7ae5bd29cd).
+Created by Hiroaki Machida, with coding-agent assistance, for [HIM Open Build Challenge](https://arena.himrobotics.com/challenges/open-build). [Dynamic v2 Arena entry](https://arena.himrobotics.com/uploads/source_468d0f1ae2776057b8e7). [Original v1](https://arena.himrobotics.com/uploads/source_54b57ede9b7ae5bd29cd).
 
 ## What changed
 
@@ -85,3 +85,4 @@ bash runner/check_with_official_kit.sh /path/to/g1-builder-kit
 G1 model: MuJoCo Menagerie commit `8161bba264d7fa7c99ca301e91e7fb44737676ad`, via HIM builder kit revision `e93c49267a7b6b905c6666c8c70668f8ee7ac397`. NVIDIA Balance model: GR00T WholeBodyControl commit `b042411fae38ee4d1af9aac82a37a1f8d14d6dd0`. Robot/model/font licenses and exact notices are retained; see `THIRD_PARTY_NOTICES.md`.
 
 Original contributions include choreography/composite control, analytical gravity compensation, costume geometry and karakusa texture, festival stage, task harness, video/audio, ROS adapter and artifact packaging. The cloth is a visual approximation and the dance is culturally inspired choreography, not a recording or retargeting of a traditional performer.
+

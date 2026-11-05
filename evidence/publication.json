@@ -1,0 +1,12 @@
+{
+  "status": "published",
+  "readiness": "work_in_progress",
+  "url": "https://arena.himrobotics.com/uploads/source_468d0f1ae2776057b8e7",
+  "upload_id": "source_468d0f1ae2776057b8e7",
+  "challenge": "open-build-challenge",
+  "published_at": "2026-11-05T19:49:45.128Z",
+  "archive_sha256": "beb5d7619c86bb053574bb6133e6af65eb05ee5529d353f649b0af68e66844a3",
+  "video_sha256": "acf62209f35cf675ebdbd871cbc63832fd8add68eb3b42d32a91bfacd4a4c10d",
+  "supersedes": "https://arena.himrobotics.com/uploads/source_54b57ede9b7ae5bd29cd",
+  "hardware_ready": false
+}
