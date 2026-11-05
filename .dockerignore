@@ -6,7 +6,9 @@
 !models/
 !models/**
 !policy.py
+!kinematics.py
 !assets/
 !assets/g1_profile.json
+!assets/g1_dynamics.json
 **/__pycache__/
 **/*.pyc

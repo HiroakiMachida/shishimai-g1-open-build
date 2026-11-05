@@ -10,9 +10,11 @@ RUN source /opt/ros/foxy/setup.bash && colcon build --base-paths interfaces --pa
 # Foxy uses Python 3.8. This supported inference release consumes the same ONNX.
 RUN python3 -m pip install --no-cache-dir numpy==1.24.4 onnxruntime==1.16.3
 COPY policy.py /submission/policy.py
+COPY kinematics.py /submission/kinematics.py
 COPY vendor /submission/vendor
 COPY models /submission/models
 COPY assets/g1_profile.json /submission/assets/g1_profile.json
+COPY assets/g1_dynamics.json /submission/assets/g1_dynamics.json
 COPY runner/ros_policy.py runner/entrypoint.sh /submission/
 ENV OPENBLAS_NUM_THREADS=1 OMP_NUM_THREADS=1
 ARG SOURCE_COMMIT=unknown

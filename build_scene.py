@@ -82,18 +82,18 @@ def main():
     sub(world,'light',pos='-1 2 3',dir='.3 -.4 -1',diffuse='.4 .5 .65')
     sub(world,'light',pos='0 -2 2',dir='0 1 -.2',diffuse='.5 .5 .5',castshadow='false')
     # Plank seams, stage edge and a restrained, original festival setting.
-    for i in range(-9,10):
-        geom(world,'box',f'{i*.22} 0 -.0006','.002 3 .001','navy')
-    for y in (-2.3,2.3):
-        geom(world,'box',f'0 {y} .025','3 .04 .025','gold')
-    geom(world,'box','-1.7 0 1.2','.03 3 1.2','navy')
-    for y in (-1.15,1.15):
-        geom(world,'cylinder',f'-.95 {y} .95','.06 .95','vermillion')
-        geom(world,'ellipsoid',f'-.95 {y} 1.82','.16 .16 .23','paper')
-        for z in (1.61,1.68,1.75,1.82,1.89,1.96,2.03):
-            geom(world,'cylinder',f'-.95 {y} {z}','.162 .005','gold')
-    geom(world,'box','-1.0 0 2.15','.08 1.55 .06','vermillion')
-    geom(world,'box','-1.0 0 2.25','.11 1.65 .03','ink')
+    for i in range(-36,37):
+        geom(world,'box',f'{i*.25} 0 -.0006','.002 9 .001','navy')
+    for y in (-7.5,7.5):
+        geom(world,'box',f'0 {y} .025','9 .04 .025','gold')
+    geom(world,'box','-7 0 1.5','.03 9 1.5','navy')
+    for y in (-3.0,3.0):
+        geom(world,'cylinder',f'-4.5 {y} 1.25','.09 1.25','vermillion')
+        geom(world,'ellipsoid',f'-4.5 {y} 2.32','.21 .21 .28','paper')
+        for z in (2.08,2.16,2.24,2.32,2.40,2.48,2.56):
+            geom(world,'cylinder',f'-4.5 {y} {z}','.212 .005','gold')
+    geom(world,'box','-4.55 0 2.8','.10 3.5 .08','vermillion')
+    geom(world,'box','-4.55 0 2.95','.14 3.7 .04','ink')
     torso=root.find(".//body[@name='torso_link']")
     mask=sub(torso,'body',name='shishi_costume',pos='.045 0 .395')
     sub(mask,'inertial',mass='.45',pos='0 0 -.04',diaginertia='.006 .006 .007')
@@ -127,6 +127,9 @@ def main():
     # Use the exact public model's floating joint and all 29 position actuators.
     ET.indent(tree,space='  ')
     tree.write(ROOT/'scene.xml',encoding='unicode',xml_declaration=False)
+    import mujoco
+    from kinematics import export_model
+    export_model(mujoco.MjModel.from_xml_path(str(ROOT/'scene.xml')),ROOT/'assets/g1_dynamics.json')
     print('Wrote scene.xml: floating G1, 29 actuators, 0.45 kg torso-mounted costume.')
 
 if __name__=='__main__':main()

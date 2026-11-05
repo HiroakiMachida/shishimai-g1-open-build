@@ -28,8 +28,8 @@ def sound(seconds,path):
         s*=np.minimum(t*1500,1)*amp
         k=round(start*sr);m=min(len(s),n-k)
         if m>0:out[k:k+m]+=s[:m]
-    for k in range(int((seconds-2)/(.576923))):
-        t=2+k*.576923
+    for k in range(int((seconds-.25)/.5)):
+        t=.25+k*.5
         hit(t,'drum' if k%4 in (0,2) else 'wood',.34 if k%4==0 else .16)
     out*=np.minimum(np.arange(n)/sr,1)*np.minimum((n-np.arange(n))/sr,1)
     out=np.clip(out,-.94,.94)

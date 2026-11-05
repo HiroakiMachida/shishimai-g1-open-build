@@ -8,6 +8,7 @@ import math,json
 import numpy as np
 from vendor.him.balance_policy import BalancePolicy
 from vendor.him.hardware_constants import G1_29_JOINT_NAMES
+from kinematics import GravityCompensator
 
 ROOT=Path(__file__).resolve().parent
 DT=.02
@@ -27,37 +28,55 @@ def window(t,start,end,ramp=.7):
     return smooth((t-start)/ramp)*smooth((end-t)/ramp)
 
 def choreography(t):
-    """Slow, bounded 29-joint offsets; standing balance controls the legs."""
-    q=np.zeros(29)
-    # Raised forearms frame the lion without claiming a physical grasp.
-    q[15:22]=[-.35,.28,0,1.15,0,0,0]
-    q[22:29]=[-.35,-.28,0,1.15,0,0,0]
-    bow=window(t,4,10,1.5)*(.5-.5*math.cos(2*math.pi*(t-4)/6))
-    gaze=window(t,11,19,1.2)*math.sin(2*math.pi*(t-11)/8)
-    pulse=window(t,20,29,1.0)*math.sin(2*math.pi*(t-20)/2.3)
-    finale=window(t,30,35,1.4)
-    q[12]=.35*gaze+.11*pulse
-    q[13]=.025*pulse
-    q[14]=.19*bow+.055*pulse+.10*finale
-    q[15]+=-.18*bow-.14*pulse-.22*finale
-    q[22]+=-.18*bow-.14*pulse-.22*finale
-    q[16]+=.10*pulse+.24*finale
-    q[23]+=-.10*pulse-.24*finale
-    q[18]+=.12*bow+.10*pulse
-    q[25]+=.12*bow+.10*pulse
-    q[19]=.10*gaze
-    q[26]=-.10*gaze
+    """Large expressive motor targets; floating-base balance still owns the legs."""
+    def pose(yaw=0,roll=0,pitch=0,lp=-.35,lr=.28,le=1.15,rp=None,rr=None,re=None):
+        q=np.zeros(29);q[12:15]=[yaw,roll,pitch]
+        q[15:22]=[lp,lr,0,le,0,0,0]
+        q[22:29]=[lp if rp is None else rp,-lr if rr is None else rr,0,le if re is None else re,0,0,0]
+        return q
+    poses=[
+      (0.,pose()),
+      (2.5,pose(lp=-.80,lr=.8,le=.3)),
+      (4.,pose(pitch=.23,lp=-1.15,lr=.5,le=.4)),
+      (5.5,pose(pitch=-.12,lp=-1.90,lr=.25,le=.2)),
+      (7.,pose(pitch=.02,lp=-.35,lr=1.20,le=.15)),
+      (8.8,pose(yaw=-.80,roll=-.08,pitch=.06,lp=-.4,lr=1.1,le=.2,rp=-1.25,rr=-.35,re=.65)),
+      (10.6,pose(yaw=.80,roll=.08,pitch=.06,lp=-1.25,lr=.35,le=.65,rp=-.4,rr=-1.1,re=.2)),
+      (12.4,pose(yaw=-.80,pitch=.05,lp=-.6,lr=1.0,le=.25)),
+      (14.,pose(lp=-1.05,lr=1.1,le=.6)),
+      (23.,pose(lp=-1.05,lr=1.1,le=.6)),
+      (24.8,pose(yaw=.90,pitch=-.08,lp=-1.65,lr=.65,le=.25)),
+      (26.6,pose(yaw=-.90,pitch=.10,lp=-.65,lr=1.2,le=.25)),
+      (28.4,pose(yaw=.90,pitch=-.08,lp=-1.65,lr=.65,le=.25)),
+      (30.,pose(pitch=.02,lp=-.5,lr=1.2,le=.15)),
+      (31.6,pose(pitch=.24,lp=-1.1,lr=.55,le=.35)),
+      (33.5,pose(pitch=-.10,lp=-1.90,lr=.45,le=.15)),
+      (35.,pose(lp=-.55,lr=1.0,le=.25)),
+      (36.,pose())]
+    q=poses[-1][1].copy()
+    for (a,qa),(b,qb) in zip(poses,poses[1:]):
+        if t<=b:
+            u=smooth((t-a)/(b-a));q=qa*(1-u)+qb*u;break
+    if 14<=t<=23:
+        a=2*math.pi*(t-14)/1.5;w=window(t,14,23,.7)
+        q[12]+=.32*w*math.sin(a)
+        q[13]+=.085*w*math.sin(a)
+        q[14]+=.12*w*(.2+math.cos(a))
+        q[15]+=.42*w*math.sin(a);q[22]-=.42*w*math.sin(a)
+        q[16]-=.28*w*(1-math.cos(a));q[23]+=.28*w*(1-math.cos(a))
+        q[18]+=.25*w*math.sin(a);q[25]-=.25*w*math.sin(a)
     return q
 
 def phase(t):
-    for end,name in [(4,'Awakening'),(10,'Rei / greeting bow'),(19,'Mie / left and right'),
-                     (29,'Mai / rhythmic head shake'),(35,'Final blessing'),(1000,'Quiet stand')]:
+    for end,name in [(2.5,'Awakening'),(7,'Rei / bow and sky reach'),(14,'Mie / sweeping turns'),
+                     (23,'Mai / lion frenzy'),(30,'Festival fan'),(35,'Final blessing'),(1000,'Quiet stand')]:
         if t<end:return name
 
 class Policy:
     def __init__(self,neutral=False):
         self.balance=BalancePolicy(str(ROOT/'models/balance.onnx'))
         self.balance.warmup()
+        self.gravity=GravityCompensator()
         self.neutral=neutral
         self.reset()
 
@@ -88,15 +107,17 @@ class Policy:
         if tilt>.6:self.aborted=True
         if self.aborted:
             return {'q':q.copy(),'dq':np.zeros(29),'kp':np.zeros(29),'kd':np.ones(29)*2,'tau':np.zeros(29)}
-        max_delta=np.r_[np.ones(12)*.25,np.ones(3)*.018,np.ones(14)*.024]
+        max_delta=np.r_[np.ones(12)*.25,np.ones(3)*.024,np.ones(14)*.038]
         target=self.last+np.clip(target-self.last,-max_delta,max_delta)
+        tau=np.zeros(29)
+        tau[12:]=np.clip(self.gravity.calculate(q,quat)[12:],-.65*EFFORT[12:],.65*EFFORT[12:])
         # Keep margin in the host-approved PD demand budget at each observation.
-        lower_bound=np.maximum(QMIN+.02,q+(-.82*EFFORT+KD*dq)/KP)
-        upper_bound=np.minimum(QMAX-.02,q+(.82*EFFORT+KD*dq)/KP)
+        lower_bound=np.maximum(QMIN+.02,q+(-.82*EFFORT+KD*dq-tau)/KP)
+        upper_bound=np.minimum(QMAX-.02,q+(.82*EFFORT+KD*dq-tau)/KP)
         if np.any(lower_bound>upper_bound):raise ValueError('No feasible bounded motor command')
         target=np.clip(target,lower_bound,upper_bound)
         self.last=target.copy()
-        return {'q':target,'dq':np.zeros(29),'kp':KP.copy(),'kd':KD.copy(),'tau':np.zeros(29)}
+        return {'q':target,'dq':np.zeros(29),'kp':KP.copy(),'kd':KD.copy(),'tau':tau}
 
 _policy=None
 def reset():

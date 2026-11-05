@@ -334,48 +334,102 @@
     <light pos="2 -3 4" dir="-.4 .5 -1" diffuse=".95 .78 .54" specular=".5 .4 .25" castshadow="true" />
     <light pos="-1 2 3" dir=".3 -.4 -1" diffuse=".4 .5 .65" />
     <light pos="0 -2 2" dir="0 1 -.2" diffuse=".5 .5 .5" castshadow="false" />
-    <geom type="box" pos="-1.98 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="-1.76 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="-1.54 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="-1.32 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="-1.1 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="-0.88 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="-0.66 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="-0.44 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="-0.22 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="0.0 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="0.22 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="0.44 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="0.66 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="0.88 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="1.1 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="1.32 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="1.54 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="1.76 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="1.98 0 -.0006" size=".002 3 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="0 -2.3 .025" size="3 .04 .025" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="0 2.3 .025" size="3 .04 .025" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="-1.7 0 1.2" size=".03 3 1.2" material="navy" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 -1.15 .95" size=".06 .95" material="vermillion" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="ellipsoid" pos="-.95 -1.15 1.82" size=".16 .16 .23" material="paper" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 -1.15 1.61" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 -1.15 1.68" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 -1.15 1.75" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 -1.15 1.82" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 -1.15 1.89" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 -1.15 1.96" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 -1.15 2.03" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 1.15 .95" size=".06 .95" material="vermillion" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="ellipsoid" pos="-.95 1.15 1.82" size=".16 .16 .23" material="paper" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 1.15 1.61" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 1.15 1.68" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 1.15 1.75" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 1.15 1.82" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 1.15 1.89" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 1.15 1.96" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="cylinder" pos="-.95 1.15 2.03" size=".162 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="-1.0 0 2.15" size=".08 1.55 .06" material="vermillion" contype="0" conaffinity="0" group="2" density="0" />
-    <geom type="box" pos="-1.0 0 2.25" size=".11 1.65 .03" material="ink" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-9.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-8.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-8.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-8.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-8.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-7.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-7.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-7.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-7.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-6.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-6.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-6.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-6.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-5.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-5.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-5.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-5.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-4.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-4.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-4.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-4.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-3.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-3.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-3.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-3.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-2.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-2.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-2.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-2.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-1.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-1.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-1.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-1.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-0.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-0.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-0.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="0.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="0.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="0.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="0.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="1.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="1.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="1.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="1.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="2.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="2.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="2.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="2.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="3.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="3.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="3.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="3.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="4.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="4.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="4.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="4.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="5.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="5.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="5.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="5.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="6.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="6.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="6.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="6.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="7.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="7.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="7.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="7.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="8.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="8.25 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="8.5 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="8.75 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="9.0 0 -.0006" size=".002 9 .001" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="0 -7.5 .025" size="9 .04 .025" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="0 7.5 .025" size="9 .04 .025" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-7 0 1.5" size=".03 9 1.5" material="navy" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 -3.0 1.25" size=".09 1.25" material="vermillion" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="ellipsoid" pos="-4.5 -3.0 2.32" size=".21 .21 .28" material="paper" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 -3.0 2.08" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 -3.0 2.16" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 -3.0 2.24" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 -3.0 2.32" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 -3.0 2.4" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 -3.0 2.48" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 -3.0 2.56" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 3.0 1.25" size=".09 1.25" material="vermillion" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="ellipsoid" pos="-4.5 3.0 2.32" size=".21 .21 .28" material="paper" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 3.0 2.08" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 3.0 2.16" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 3.0 2.24" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 3.0 2.32" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 3.0 2.4" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 3.0 2.48" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="cylinder" pos="-4.5 3.0 2.56" size=".212 .005" material="gold" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-4.55 0 2.8" size=".10 3.5 .08" material="vermillion" contype="0" conaffinity="0" group="2" density="0" />
+    <geom type="box" pos="-4.55 0 2.95" size=".14 3.7 .04" material="ink" contype="0" conaffinity="0" group="2" density="0" />
   </worldbody>
   <actuator>
     <position class="g1" name="left_hip_pitch_joint" joint="left_hip_pitch_joint" />

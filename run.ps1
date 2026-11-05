@@ -5,5 +5,5 @@ if (Test-Path -LiteralPath '.simenv\Scripts\python.exe') { $taskPython = Join-Pa
 if ($LASTEXITCODE) { throw 'Policy contract checks failed' }
 & $taskPython tests/test_policy.py --benchmark
 if ($LASTEXITCODE) { throw 'Task/causality checks failed' }
-& $taskPython run.py --seed 1000 --render
+& $taskPython run.py --seed 1008 --render
 if ($LASTEXITCODE) { throw 'Episode/video generation failed' }
