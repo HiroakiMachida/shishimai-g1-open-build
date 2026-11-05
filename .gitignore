@@ -1,0 +1,13 @@
+.venv/
+.simenv/
+reference/
+__pycache__/
+*.pyc
+build/
+dist/
+*.tar
+*.mp4
+*.wav
+*.npz
+!evidence/*.json
+.env*
