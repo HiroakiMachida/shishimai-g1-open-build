@@ -16,7 +16,7 @@ class Shishimai(Node):
         self.policy=Policy();self.session=None;self.sequence=0;self.done=False
         self.feedback=None;self.state=None;self.state_at=0;self.feedback_at=0;self.last=0
         self.arm_future=None;self.arm_at=0;self.sent=False
-        feedback_qos=QoSProfile(depth=8,reliability=ReliabilityPolicy.BEST_EFFORT)
+        feedback_qos=QoSProfile(depth=1,reliability=ReliabilityPolicy.BEST_EFFORT)
         abort_qos=QoSProfile(depth=1,reliability=ReliabilityPolicy.RELIABLE,durability=DurabilityPolicy.TRANSIENT_LOCAL)
         self.pub=self.create_publisher(JointCommand,'/safety/precheck',QoSProfile(depth=1,reliability=ReliabilityPolicy.RELIABLE))
         self.create_subscription(RobotFeedback,'/safety/policy_observation',self.on_feedback,feedback_qos)
@@ -25,7 +25,9 @@ class Shishimai(Node):
         self.arm=self.create_client(Trigger,'/safety/checker/arm')
         self.create_timer(.02,self.tick)
 
-    def on_feedback(self,msg):self.feedback=msg;self.feedback_at=time.monotonic()
+    def on_feedback(self,msg):
+        self.feedback=msg;self.feedback_at=time.monotonic()
+        self.publish_command()
     def on_state(self,msg):
         try:self.state=json.loads(msg.data);self.state_at=time.monotonic()
         except (ValueError,TypeError):self.done=True
@@ -42,8 +44,15 @@ class Shishimai(Node):
             elif self.arm_future is None and now-self.arm_at>.5 and self.arm.service_is_ready():
                 self.arm_at=now;self.arm_future=self.arm.call_async(Trigger.Request())
             if self.session is None:return
+        # Commands are observation-driven; timer jitter cannot make us reuse an
+        # old observation while a fresh feedback callback is still queued.
+
+    def publish_command(self):
+        if self.done or self.session is None:return
+        now=time.monotonic()
+        if now-self.last<.016:return
         if self.feedback is None or self.state is None:return
-        if max(now-self.feedback_at,now-self.state_at)>.12:
+        if max(now-self.feedback_at,now-self.state_at)>.18:
             if self.sent:self.get_logger().error('Stale telemetry; stop publishing');self.done=True
             return
         state=self.state;feedback=self.feedback
@@ -57,7 +66,7 @@ class Shishimai(Node):
             message=JointCommand();message.session_id=self.session;message.observation_id=feedback.observation_id
             message.sequence=self.sequence
             for k in ('q','dq','kp','kd','tau'):setattr(message,k,[float(v) for v in cmd[k]])
-            self.pub.publish(message);self.sequence+=1;self.sent=True
+            self.pub.publish(message);self.sequence+=1;self.sent=True;self.last=now
         except Exception as exc:
             self.get_logger().error(str(exc));self.done=True
 
