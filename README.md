@@ -1,23 +1,36 @@
-# SHISHIMAI — The Lion, Reawakened
+# SHISHIMAI v2 — Dynamic Festival Dance
 
-獅子舞を、Unitree G1の全身制御で。
+獅子舞を、大きな全身の動きで。
 
-A free-standing Unitree G1 performs a 36-second Japanese lion-dance-inspired routine: awakening, a greeting bow, left/right mie, rhythmic head shakes and a final blessing. An original red lacquer-style mask, white mane and green karakusa-pattern cloak turn the standard humanoid into a single-performer shishi. The robot's waist supplies the expressive head movement without adding a neck motor.
+A free-standing Unitree G1 performs a 36-second lion-dance-inspired routine: a greeting bow, overhead reaches, sweeping looks, alternating paw gestures, a festival fan and a final blessing. The dynamic edition replaces the restrained first demonstration with substantially larger motor-driven movements and a full-frame 1080p presentation.
 
-Created for [HIM Robotics Open Build Challenge](https://arena.himrobotics.com/challenges/open-build), deadline November 15, 2026, 11:59 PM ET. Entrant: Hiroaki Machida. Developed with coding-agent assistance.
+Created by Hiroaki Machida, with coding-agent assistance, for [HIM Open Build Challenge](https://arena.himrobotics.com/challenges/open-build). [Original v1 Arena entry](https://arena.himrobotics.com/uploads/source_54b57ede9b7ae5bd29cd).
 
-## What actually runs
+## What changed
 
-- Real MuJoCo gravity, contact and 29 joint actuators. Floating pelvis, no weld, mocap body, scripted root motion or support force.
-- `policy.py`: `reset()` and `act(observation) -> {q,dq,kp,kd,tau}`. All outputs have 29 slots in the public HIM G1 motor order. The policy runs at 50 Hz and physics at 500 Hz.
-- The observation contains joint positions/velocities, pelvis quaternion wxyz and body-frame gyro. The controller never receives world position, floor contact, camera images or future simulator state.
-- Scripted waist/arm choreography is combined with the **unchanged, pretrained NVIDIA GR00T WholeBodyControl Balance ONNX** for the 12 leg targets. No model was trained for this project. The network's waist outputs are replaced by choreography; IMU heading feedback also adjusts hip yaw. This is a composite controller, not a newly learned dance policy.
-- Public HIM profile gains, position limits and torque limits are used. Each position target is projected into 82% of the current PD demand budget. Legs may respond quickly; the artistic upper-body targets are rate limited.
-- The 0.45 kg costume is a rigid torso-mounted prop with explicit inertia. It is **not held by a simulated grasp**. The cloak is a rigid visual mesh with no fabric dynamics or collision. Robot-to-floor contact remains enabled; the costume has no collision geometry.
+Measured from the two published demonstration trajectories; v1 uses seed 1000, v2 uses the disclosed successful seed 1008. See `evidence/motion-comparison.json`.
+
+| Measured motion | v1 | Dynamic v2 |
+| --- | ---: | ---: |
+| Waist/head left-to-right range | 39.6 deg | 110.4 deg |
+| Shoulder pitch range | about 41 deg | about 120 deg |
+| Hand vertical range relative to pelvis | 0.12 m | 0.80 m |
+| Presentation | 720p, large text panel | 1080p, full-frame tracking view |
+
+The new controller adds analytical gravity feedforward for the waist and arms, using the known robot/costume masses, measured joints and pelvis quaternion. Its calculation is independently checked against MuJoCo's rigid-body gravity terms. This supports the large upper-body poses without adding any force to the floating base.
+
+## Actual control and physics
+
+- Floating G1 pelvis; 29 joint actuators, gravity and ground contact. No weld, mocap body, external support force or scripted root motion.
+- `policy.py` provides `reset()` and `act(observation) -> {q,dq,kp,kd,tau}` in the public HIM motor order. Control is 50 Hz; physics is 500 Hz.
+- Inputs are joint positions/velocities, pelvis quaternion wxyz and body-frame gyro. No contact oracle, external object state or world/base translation enters the policy.
+- NVIDIA's unchanged pretrained GR00T WholeBodyControl Balance model supplies leg targets. Scripted choreography supplies waist/arm targets; `kinematics.py` supplies gravity feedforward. No new model was trained.
+- Public HIM profile gains and effort/position limits are used. Position targets are projected into 82% of the current total PD-plus-feedforward effort budget.
+- The original lion mask and karakusa cloak are a rigid, torso-mounted 0.45 kg costume. There is no simulated hand grasp, articulated jaw or fabric dynamics. Costume/stage decoration has no collision geometry; robot-to-floor contact is physical.
 
 ## Reproduce
 
-Python 3.10 or 3.11 is recommended. Install the pinned dependencies:
+Use Python 3.10 or 3.11 and the pinned dependencies.
 
 ```sh
 python3 -m venv .venv
@@ -26,59 +39,49 @@ python3 -m pip install -r requirements.txt
 bash run.sh
 ```
 
-Windows: activate a Python 3.10/3.11 environment, install the same requirements and run `powershell -ExecutionPolicy Bypass -File run.ps1`.
+On Windows, activate the corresponding Python environment, install the requirements and run `run.ps1`.
 
-`run.sh` checks the policy contract, runs the seeded task/neutral comparisons and generates `result.mp4` from the evaluated seed-1000 trajectory. On headless Linux, use `MUJOCO_GL=egl` with a compatible GPU driver, or `MUJOCO_GL=osmesa` with Mesa installed. Rendering requires an OpenGL context. The checked-in `scene.xml`, assets and model make no runtime network requests.
-
-Quick evaluation without rendering:
+`run.sh` checks the controller contract and independent gravity calculation, evaluates all active/neutral starts and stress trials, then renders the successful **seed-1008** episode. It refuses to render a failed demonstration. The benchmark reports failures; it does not assert that this WIP routine succeeds on every start.
 
 ```sh
-python3 run.py --seed 1000
-python3 run.py --seed 1000 --neutral
+python3 tests/test_policy.py
+python3 tests/test_policy.py --benchmark
+python3 run.py --seed 1008 --render
+python3 run.py --seed 1008 --neutral
 ```
 
-To regenerate the original costume and stage from code, run `python3 build_scene.py`. The published scene is already included. Video typography uses the bundled OFL-licensed Zen Old Mincho font. Percussion is synthesized procedurally by `video.py`; it is original sound design, not a recording of a traditional performance.
+`scene.xml`, all assets and the balance model are included. `python3 build_scene.py` regenerates the scene, original costume, texture and exported `assets/g1_dynamics.json`. On headless Linux, configure an EGL or OSMesa OpenGL context for rendering. `video_v2.py` is the full-frame renderer; `video.py` supplies the shared font/audio helpers and retains the original layout implementation.
 
-## Evidence and task definition
+## Results and important failures
 
-`evidence/benchmark.json` is the authoritative custom task report. Each episode lasts 36 seconds. Task success requires the pelvis to remain above 0.55 m, tilt to remain below 0.4 rad, and the measured **waist** yaw/pitch ranges to exceed 0.45/0.12 rad. Both the active and neutral policies use identical seeded starts and the same learned standing controller. Neutral disables the choreography, so standing alone does not pass.
+The stricter v2 task requires 36 seconds upright, pelvis height above 0.55 m, tilt below 0.4 rad, waist yaw/pitch ranges above 1.57/0.30 rad, both shoulder pitch ranges above 1.57 rad and both hand vertical ranges above 0.65 m.
 
-The nominal protocol uses seeds 1000–1011 with independent joint-position perturbations uniformly sampled within ±0.003 rad. This is a small reset perturbation, not broad domain randomization. Four additional ±10/±20 N sideways pushes, applied for 0.12 s at 12 s, are reported separately as stress characterization; their outcomes do not change the nominal task definition.
+- **Dynamic task: 9/12**, seeds 1000–1011 with independent initial joint perturbations within ±0.003 rad.
+- **Neutral: 0/12** under the same dynamic task definition.
+- **Brief lateral-push stress trials: 2/4**, ±10/±20 N for 0.12 s at 12 seconds.
+- Seeds **1001, 1009 and 1011 failed** the dynamic task. Some failed runs include low pelvis height, joint-limit excursions or a fall. This is an intentionally disclosed WIP limitation, not a fully robust policy.
+- The shown successful seed 1008 has 8.18 deg maximum pelvis tilt, 0.214 m net horizontal displacement and a positive 0.0832 rad minimum joint-limit margin.
 
-The video is a continuous real-time rendering of the saved successful episode. The renderer replays actual evaluated joint/base states; it cannot change the outcome. Titles, the progress bar and audio are editorial additions. Frame indices map directly to simulation time, and the camera stays fixed so physical motion remains visible.
+The custom task was made substantially more demanding than v1. The v1 success count must not be carried over as a v2 reliability claim. All episodes, including failures, are retained in `evidence/benchmark.json`. This remains a demonstration of large controlled motion with limited robustness, not a hardware safety pass.
 
-Inspect `evidence/episode.json`, `evidence/benchmark.json`, `evidence/video-check.json`, `evidence/provenance.json` and any included `evidence/container-*` reports. Custom task tests, official container screening and physical qualification are distinct.
+The full-frame video is a continuous real-time rendering of the evaluated seed-1008 state trajectory. The camera tracks actual root XY with fixed viewing angle/distance and displays root offset. Titles, progress and original synthesized percussion are editorial additions. The renderer cannot change the recorded physical outcome.
 
-## Robot-runner package
+## Runner and qualification status
 
-`runner/` contains a ROS 2 Foxy safety-interface adapter and a linux/arm64 Dockerfile. It reads `/safety/policy_observation` and `/safety/policy_state`, requests a checker session, publishes all 29 command slots to `/safety/precheck`, uses increasing sequences and the current observation ID, and stops publication on abort or stale telemetry. It never writes to Unitree motor topics. Initial commands hold the measured pose until the host reports `control_ready`.
+`runner/` includes a linux/arm64 ROS 2 Foxy image and adapter for the public HIM safety interface. It reads `/safety/policy_observation` and `/safety/policy_state`, obtains a checker-issued session, publishes all 29 command slots to `/safety/precheck`, and stops on abort/stale telemetry. It never publishes motor topics. Required sensors are `joint_state` and `imu`.
 
-The standard joint/IMU interface is sufficient; no camera, external tracker or base-position source is required. The costume is an additional physical requirement: a real prop, its mounting, true mass/inertia, clearance and thermal effects require separate engineering and qualification.
-
-Build with:
+`g1-runner.json` identifies the exact public image archive and SHA-256. The image includes the same complete controller, model and gravity data. ROS Foxy uses Python 3.8, NumPy 1.24.4 and ONNX Runtime 1.16.3; desktop versions are pinned separately. Platform/runtime differences need their own validation.
 
 ```sh
-docker buildx build --platform linux/arm64 --load -f runner/Dockerfile -t shishimai-g1:submission-v1 .
-docker save shishimai-g1:submission-v1 -o submission.tar
+docker buildx build --platform linux/arm64 --load -f runner/Dockerfile -t shishimai-g1:submission-v2 .
+docker save shishimai-g1:submission-v2 -o submission.tar
+bash runner/check_with_official_kit.sh /path/to/g1-builder-kit
 ```
 
-The ROS Foxy image uses Python 3.8, NumPy 1.24.4 and ONNX Runtime 1.16.3; the desktop evaluation uses the pinned versions in `requirements.txt`. The controller source and ONNX bytes are the same; runtime/platform differences require their own container test.
+**No physical G1 run or hardware approval exists.** Read `SAFETY_REPORT.md` for the exact v2 container attempt and historical v1 reports. A metadata inspection, model warmup or desktop success is not an official container safety pass. The physical costume, real inertia/mounting, sensor calibration, broader starts and stop behavior still require supervised qualification.
 
-Use the [official G1 builder kit](https://arena.himrobotics.com/policy-contracts/g1-builder-kit-e93c492-v1.zip) at revision `e93c49267a7b6b905c6666c8c70668f8ee7ac397`. Copy `submission.tar` and this complete scene/assets under `containers/upload/`, then run:
+## Credits
 
-```sh
-bash sim.sh --seconds 60 --scene containers/upload/environment/scene.xml --output containers/sim/output/standing
-bash sim.sh --seconds 60 --scene containers/upload/environment/scene.xml --counterfactuals --output containers/sim/output/counterfactuals
-```
+G1 model: MuJoCo Menagerie commit `8161bba264d7fa7c99ca301e91e7fb44737676ad`, via HIM builder kit revision `e93c49267a7b6b905c6666c8c70668f8ee7ac397`. NVIDIA Balance model: GR00T WholeBodyControl commit `b042411fae38ee4d1af9aac82a37a1f8d14d6dd0`. Robot/model/font licenses and exact notices are retained; see `THIRD_PARTY_NOTICES.md`.
 
-No hardware deployment is authorized by this project. A container build is not a safety pass. Read `SAFETY_REPORT.md` and the actual reports for the exact validation status.
-
-## Limitations
-
-This is simulation-only. The dance is scripted and uses a third-party learned balance component. Foot shuffling/drift is possible; the task measures upright completion rather than station keeping. Initial-state perturbations and disturbances are narrow. Self-contact uses the supplied simplified model. The 36-second artistic demonstration does not prove hour-long stability, sensor robustness, costume mechanics, fabric safety or hardware readiness. Real G1 execution needs supervised qualification of the exact container and physical prop.
-
-## Provenance and credits
-
-The G1 geometry comes from MuJoCo Menagerie commit `8161bba264d7fa7c99ca301e91e7fb44737676ad`, via the public HIM builder kit. Unitree's notices are preserved in `assets/g1/third_party/unitree_g1/`. The NVIDIA model is from GR00T WholeBodyControl commit `b042411fae38ee4d1af9aac82a37a1f8d14d6dd0`; its exact digest and NVIDIA Open Model License are included in `models/`. The policy's observation packing follows the public HIM balance adapter and NVIDIA's Gear WBC contract.
-
-Original work: choreography/composite controller, costume geometry and karakusa texture, festival stage, task harness, video design/audio, ROS adapter and packaging. See `THIRD_PARTY_NOTICES.md` for the boundaries between these contributions and third-party assets.
+Original contributions include choreography/composite control, analytical gravity compensation, costume geometry and karakusa texture, festival stage, task harness, video/audio, ROS adapter and artifact packaging. The cloth is a visual approximation and the dance is culturally inspired choreography, not a recording or retargeting of a traditional performer.

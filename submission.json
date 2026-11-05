@@ -1,10 +1,11 @@
 {
-  "name": "SHISHIMAI - The Lion, Reawakened | Unitree G1",
-  "caption": "Japanese lion dance on a free-standing G1. Scripted choreography + credited pretrained NVIDIA balance: 12/12 seeded 36s trials; neutral 0/12; 4/4 brief lateral-push trials. 0.45 kg torso-mounted costume; rigid visual cloak. Simulation only; not hardware-ready.",
+  "name": "SHISHIMAI v2 - Dynamic Festival Dance | Unitree G1",
+  "caption": "Dynamic v2: 110-degree head sweep, 120-degree shoulder sweep, 0.80 m hand-height range. Free-standing motor-driven MuJoCo; scripted + pretrained balance + gravity feedforward. Dynamic task 9/12, neutral 0/12; three unstable starts. Simulation only; not hardware-ready. Replaces source_54b57ede9b7ae5bd29cd.",
   "kind": "both",
   "robot": "unitree-g1",
   "simulator": "mujoco",
   "challenge": "open-build-challenge",
   "run_command": "bash run.sh",
-  "deadline": "2026-11-15T23:59:00-05:00"
+  "deadline": "2026-11-15T23:59:00-05:00",
+  "supersedes_url": "https://arena.himrobotics.com/uploads/source_54b57ede9b7ae5bd29cd"
 }

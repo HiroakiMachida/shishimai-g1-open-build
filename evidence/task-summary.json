@@ -1,8 +1,8 @@
 {
-  "active": "12/12",
+  "active": "9/12",
   "neutral": "0/12",
-  "lateral_push": "4/4",
-  "worst_nominal_tilt_deg": 18.529498865470273,
-  "minimum_nominal_joint_margin_rad": 0.05930773998283498,
-  "maximum_nominal_displacement_m": 1.5453234451166866
+  "lateral_push": "2/4",
+  "worst_nominal_tilt_deg": 27.81402513609766,
+  "minimum_nominal_joint_margin_rad": -0.05003917645377687,
+  "maximum_nominal_displacement_m": 9.837392182683388
 }

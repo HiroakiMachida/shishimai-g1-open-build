@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "repository_commit": "0b9b6feb90ef17b599deb8c561d01829831784cf",
+  "repository_commit": "adebed04100bf19373fe5dd2c325249c56fbc636",
   "image": {
-    "archive_url": "https://github.com/HiroakiMachida/shishimai-g1-open-build/releases/download/v1.0.0/submission.tar",
-    "sha256": "8e0cf0a51faa2d4f3a8cc22868b0af7945eeeceba10ea58841e1c7e98b1c4f5d"
+    "archive_url": "https://github.com/HiroakiMachida/shishimai-g1-open-build/releases/download/v2.0.0/submission.tar",
+    "sha256": "24923573a37e34993faa6b732d56bc1e011fd0a7206f8e3e60729a2088403765"
   },
   "required_sensors": [
     "joint_state",

@@ -1,0 +1,11 @@
+{
+  "controller_source_commit": "adebed04100bf19373fe5dd2c325249c56fbc636",
+  "image_archive_sha256": "24923573a37e34993faa6b732d56bc1e011fd0a7206f8e3e60729a2088403765",
+  "architecture": "linux/arm64",
+  "kit_revision": "e93c49267a7b6b905c6666c8c70668f8ee7ac397",
+  "seconds_requested": 60,
+  "safety_checks_enabled": true,
+  "scene": "containers/upload/environment/scene.xml",
+  "result": "review_required: plant response timed out; no readable policy report",
+  "smoke_test": "ROS, ONNX, analytical gravity and 29-slot command initialization passed"
+}

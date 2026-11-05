@@ -1,38 +1,41 @@
-# Validation status — simulation entry, not hardware qualified
+# Dynamic v2 validation — simulation WIP, not hardware qualified
 
-This project is a reproducible Open Build simulation entry. **It has not passed the official submitted-container safety pipeline and is not ready for a physical G1.** No hardware run was performed.
+Dynamic v2 is a reproducible simulation demonstration. It has not passed the official submitted-container pipeline, and no physical G1 test was performed.
 
-## Custom MuJoCo task checks
+## Custom dynamic task
 
-The published controller/scene completed all 12 nominal 36-second episodes (seeds 1000–1011, independent joint-position perturbations within ±0.003 rad). The neutral controller stood but completed the dance in 0/12 episodes. Four separately reported 0.12-second lateral pushes, ±10/±20 N at 12 seconds, completed in 4/4 episodes.
+The v2 definition is stricter than v1: complete 36 seconds upright, stay above 0.55 m pelvis height and below 0.4 rad tilt, exceed 1.57 rad waist yaw range and 0.30 rad waist pitch range, exceed 1.57 rad in both shoulder-pitch ranges, and exceed 0.65 m in both hand vertical ranges.
 
-- Worst active nominal pelvis tilt: 18.5295 degrees.
-- Minimum actual joint-limit margin over all 24 active/neutral nominal episodes, sampled at every physics step: 0.05931 rad.
-- Peak nominal per-joint speed/profile-limit ratio: 0.55369.
-- No physical torque-limit exceedance was recorded in those episodes. Each observed requested PD demand was bounded to 82% of its public profile limit; physical motor effort limits were also present in the scene.
-- Maximum active nominal horizontal displacement: **1.5453 m**. This is not a station-keeping policy. Balancing shuffles are allowed by the custom task definition.
-- Video episode: seed 1000, 36 seconds, 1,800 controller calls, 9.0814-degree maximum pelvis tilt, 0.2157 m horizontal displacement.
+- Active dynamic task: **9/12** seeded episodes, seeds 1000–1011, initial joint perturbations ±0.003 rad.
+- Neutral dynamic task: **0/12**. The neutral routine disables waist/arm choreography while retaining the learned standing component and gravity compensation.
+- Brief lateral pushes: **2/4**. The four stress episodes apply ±10/±20 N for 0.12 seconds at 12 seconds.
+- **Failed starts 1001, 1009 and 1011 are retained.** Failures include a fall, insufficient pelvis height and/or joint-limit excursions. Do not interpret the selected video as a 100% reliability result.
+- No commanded PD-plus-gravity demand exceeded the projected 82% effort budget at control samples, and no physical effort-limit exceedance was recorded. Physical joint limits can still be crossed during failed dynamic episodes; bounded commands alone do not prove safety.
 
-These are builder-provided custom task checks, not Arena verification, official container safety clearance or hardware evidence. The raw episode and benchmark JSON files define the measurement protocol. Success means upright task completion under those narrow conditions, not broad reliability.
+The video deliberately shows one successful demonstration, **seed 1008**. It completes 36 seconds with 1,800 controller calls, maximum pelvis tilt 8.1819 deg, minimum actual joint-limit margin 0.08319 rad and net root displacement 0.2141 m. Its waist yaw range is 110.36 deg, shoulder-pitch ranges are about 120 deg and both hand vertical ranges are about 0.80 m.
 
-## Exact ARM64 package
+This is a success-selected demonstration with all 12 trial outcomes reported separately. Some other episodes drift substantially, fall or violate joint limits. This is not a station-keeping controller or robust hardware behavior. `evidence/benchmark.json`, `episode.json`, `motion-comparison.json` and the recorded trajectory are authoritative builder-provided evidence.
 
-`g1-runner.json` references the archived linux/arm64 image and its SHA-256. The image was built locally and its architecture/entrypoint were inspected. A network-isolated ARM64-emulated smoke test successfully imported the ROS interfaces and initialized/warmed the ONNX inference model. This only proves that initialization step.
+## Controller and checks
 
-Final controller source revision: `0b9b6feb90ef17b599deb8c561d01829831784cf`.
+The floating pelvis is unassisted: no weld, mocap body or external support forces. All visible body motion results from the 29 joint actuators and simulated gravity/contact. The new waist/arm feedforward comes from an analytical mass/COM model and measured joints/quaternion. Its calculation was checked independently against MuJoCo's gravity terms over 12 randomized states. The four contract tests passed, including observation feedback, bounded commands and tipped-start behavior.
 
-Final image archive SHA-256: `8e0cf0a51faa2d4f3a8cc22868b0af7945eeeceba10ea58841e1c7e98b1c4f5d`.
+The original 0.45 kg torso-mounted costume remains a rigid visual prop without fabric or costume collision dynamics. A real costume's mass, inertia, mounting, snagging, clearance and heat must be engineered and qualified separately.
 
-## Official kit attempts
+## Exact v2 ARM64 image
 
-All runs used the unmodified public kit at revision `e93c49267a7b6b905c6666c8c70668f8ee7ac397`, its safety/thrash checks enabled and the actual costume/task scene. The host was local x86-64 WSL/Docker with ARM64 emulation for the submitted controller.
+`g1-runner.json` is the authority for the public archive URL, exact SHA-256 and source revision. The image was built for linux/arm64 with a non-empty entrypoint. A network-isolated ARM64-emulated smoke test successfully imported ROS interfaces, initialized/warmed the unchanged ONNX model, calculated gravity feedforward and produced a 29-slot motor proposal.
 
-1. `evidence/container-standing-attempt1/`: the earlier adapter's 60-second requested run accepted 347 commands and recorded handoff at 2.0 simulated seconds, then stopped on `observation_timeout` at 6.94 simulated seconds. It recorded a fall after the stop. The guard returned `review_required`; this is not a pass. This attempt used the earlier image/archive recorded in its attempt metadata.
-2. `evidence/container-standing-attempt2/`: after making publication observation-driven, the launcher reported `mujoco plant response timed out` and did not produce a readable policy report. The guard returned `review_required`. This is incomplete evidence, not a controller safety pass.
-3. `evidence/container-standing-attempt3/`: a retry of the exact final image stopped on `loop_progress` before any accepted command or policy handoff (0 simulated seconds, 0 commands). The guard again returned `review_required`.
+Those are initialization checks, not an official safety pass. The Foxy image uses its documented Python/NumPy/ONNX Runtime versions; desktop/runtime differences have not been cleared by a completed container test.
 
-The final submitted controller therefore has **no completed official standing test**. Counterfactual container starts were not run after these startup failures. The cause of those pre-handoff failures remains unresolved; the reports do not demonstrate a successful run of the final controller. Earlier evidence is preserved rather than replaced by the desktop task result.
+## Official v2 kit attempt
 
-## Required before any supervised physical attempt
+The exact image was attempted for 60 seconds with the unmodified public kit at revision e93c49267a7b6b905c6666c8c70668f8ee7ac397, safety/thrash checks enabled and the actual v2 scene. The local host was x86-64 WSL/Docker, emulating ARM64 for the controller.
 
-Resolve the runner startup/timing failures, execute the exact published image for the full task with at least 10 simulated seconds after handoff, and complete the kit's counterfactuals with checks enabled. Require a genuine `simulation_checks_complete` report, control readiness and trace coverage. Then qualify the physical costume, its real inertia/mounting/clearance, joint/IMU calibration and stop behavior with the supervised runner. Keep hardware blocked until that separate qualification is complete.
+The launcher reported **mujoco plant response timed out** before a readable policy report was produced. The coverage guard returned **review_required**, not simulation_checks_complete. See `evidence/container-v2-standing/`. No successful final-controller handoff/coverage was established. Counterfactual container starts were not run after this startup failure.
+
+Historical v1 attempts remain under `evidence/container-standing-attempt1/`, `attempt2/` and `attempt3/`. They include observation_timeout, a plant startup timeout and loop_progress. They describe earlier images and are not v2 test results.
+
+## Before any supervised robot run
+
+Resolve the runner startup problem; execute the exact published image for the complete task with at least 10 simulated seconds after handoff; complete counterfactual starts with checks enabled; and require genuine control readiness, trace coverage and simulation_checks_complete. Physical prop, sensor, timing and stop qualification is still separate. Keep hardware execution blocked until the supervised runner qualifies it.

@@ -1,5 +1,7 @@
 # Make it yours next
 
+The dynamic v2 priority is to fix failed seeds 1001, 1009 and 1011 while preserving the enlarged range of motion. Report the complete seed set and improve stability before any physical attempt.
+
 1. Engineer a removable, measured lightweight lion head and verify its mounting on a supervised G1. Match the measured inertia in simulation.
 2. Replace the rigid visual cloak with fabric simulation, assess snagging/heat, and design a safe short hem before any physical costume test.
 3. Add station keeping and footstep planning. Report displacement as a task criterion instead of allowing balancing shuffles.

@@ -5,11 +5,11 @@ import hashlib,json,re,zipfile,shutil
 ROOT=Path(__file__).resolve().parent
 TOP=['.gitattributes','.gitignore','.dockerignore','README.md','LICENSE',
      'THIRD_PARTY_NOTICES.md','SAFETY_REPORT.md','SENSOR_CONTRACT.md','NEXT_IDEAS.md',
-     'build_scene.py','policy.py','run.py','video.py','package.py','finalize.py',
+     'build_scene.py','policy.py','kinematics.py','run.py','video.py','video_v2.py','package.py','finalize.py',
      'run.sh','run.ps1','submit.ps1','submission.json','requirements.txt','requirements-lock.txt',
      'scene.xml','g1-runner.json']
 EVIDENCE=['benchmark.json','episode.json','episode.npz','video-check.json','provenance.json','task-summary.json',
-          'frame-0000.jpg','frame-0180.jpg','frame-0420.jpg','frame-0690.jpg','frame-0960.jpg']
+          'motion-comparison.json','frame-0000.jpg','frame-0180.jpg','frame-0420.jpg','frame-0690.jpg','frame-0960.jpg']
 
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 

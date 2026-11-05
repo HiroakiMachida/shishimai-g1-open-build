@@ -1,0 +1,10 @@
+{
+  "status": "review_required",
+  "hardware_authorization": false,
+  "reports": [
+    {
+      "report": "containers/sim/output/v2-standing/report.json",
+      "problem": "Report missing or unreadable."
+    }
+  ]
+}
