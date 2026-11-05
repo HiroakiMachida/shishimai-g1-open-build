@@ -1,4 +1,7 @@
-FROM ros:foxy-ros-base
+FROM ros:foxy-ros-base@sha256:34fbe32f5b1cd3eb25f6becaaa1d293bad754d64c31d96e638e4b30ed82f9f8e
+ARG SOURCE_COMMIT=unknown
+LABEL org.opencontainers.image.source="https://github.com/HiroakiMachida/shishimai-g1-open-build" \
+      org.opencontainers.image.revision=$SOURCE_COMMIT
 SHELL ["/bin/bash", "-c"]
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential cmake python3-pip python3-colcon-common-extensions \

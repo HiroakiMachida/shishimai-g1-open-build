@@ -42,8 +42,8 @@ def render_episode(output,width=1280,height=720):
     fps=30;duration=len(states)*.02;panel=round(width*.29);view_width=width-panel
     renderer=mujoco.Renderer(model,height=height,width=view_width)
     camera=mujoco.MjvCamera();camera.type=mujoco.mjtCamera.mjCAMERA_FREE
-    camera.azimuth=205;camera.elevation=-10;camera.distance=2.75
-    camera.lookat[:]=[.0,0,.85]
+    camera.azimuth=205;camera.elevation=-10;camera.distance=3.0
+    camera.lookat[:]=[.0,0,.78]
     opt=mujoco.MjvOption();opt.geomgroup[3]=0;opt.sitegroup[:]=0
     silent=output.with_name(output.stem+'-silent.mp4')
     writer=imageio.get_writer(str(silent),fps=fps,codec='libx264',quality=8,
