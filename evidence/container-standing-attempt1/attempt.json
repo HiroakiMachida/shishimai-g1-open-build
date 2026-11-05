@@ -1,0 +1,10 @@
+{
+  "controller_source_commit": "8716fdac94c4e38b13da5c58577c0167fe9bfbea",
+  "image_archive_sha256": "70bfb938b57b7c63e92511f8411b118e1377d2a49ff2a49b2a396c14a444bd05",
+  "architecture": "linux/arm64",
+  "host": "local WSL x86-64 with ARM64 emulation",
+  "kit_revision": "e93c49267a7b6b905c6666c8c70668f8ee7ac397",
+  "seconds_requested": 60,
+  "safety_checks_enabled": true,
+  "scene": "containers/upload/environment/scene.xml"
+}

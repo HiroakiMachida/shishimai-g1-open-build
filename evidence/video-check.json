@@ -1,0 +1,21 @@
+{
+  "decoded_without_errors": true,
+  "duration_seconds": 36.0,
+  "resolution": [
+    1280,
+    720
+  ],
+  "fps": 30.0,
+  "codec": "h264",
+  "bytes": 10944986,
+  "sha256": "48aa4b566750d5a45d16efa897421b6fbc7d525fdba8767d4ee2df934182a358",
+  "representative_frames": [
+    0,
+    180,
+    420,
+    690,
+    960
+  ],
+  "editorial_additions": "titles, progress bar and original synthesized percussion",
+  "physical_outcome": "continuous real-time replay of evaluated seed 1000; no outcome editing"
+}

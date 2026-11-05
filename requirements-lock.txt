@@ -16,7 +16,7 @@ packaging==26.3
 pillow==12.0.0
 protobuf==7.36.2
 PyOpenGL==3.1.10
-pyreadline3==3.5.6
+pyreadline3==3.5.6; sys_platform == 'win32'
 sympy==1.14.0
 typing_extensions==4.16.0
 zipp==4.1.2

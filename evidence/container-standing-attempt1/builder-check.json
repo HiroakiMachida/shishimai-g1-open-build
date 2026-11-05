@@ -1,0 +1,10 @@
+{
+  "status": "review_required",
+  "hardware_authorization": false,
+  "reports": [
+    {
+      "report": "containers/sim/output/standing/report.json",
+      "problem": "Review the recorded violation or runtime error."
+    }
+  ]
+}

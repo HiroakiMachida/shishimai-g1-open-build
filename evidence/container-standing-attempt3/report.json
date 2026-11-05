@@ -1,0 +1,83 @@
+{
+  "startup_balance_required": true,
+  "startup_phase": "fault",
+  "startup_stable": false,
+  "handoff_ready": false,
+  "policy_handoff_at_secs": null,
+  "control_ready": false,
+  "version": 1,
+  "status": "violation",
+  "reason": "loop_progress",
+  "detail": null,
+  "stop_time_seconds": 0.0,
+  "stop": {
+    "reason": "loop_progress",
+    "detail": null,
+    "time_secs": 0.0
+  },
+  "warnings": {},
+  "response_error_rad": {
+    "last": null,
+    "max_abs": 0.0
+  },
+  "commands": 0,
+  "steps": 0,
+  "seconds": 0.0,
+  "lowstate": false,
+  "hardware_authorization": false,
+  "session_id": "sim-d489161351d2",
+  "pose": "standing",
+  "scene": "/workspace/containers/upload/environment/scene.xml",
+  "safety_checks": true,
+  "control_path": "submission",
+  "checks": {
+    "command_protocol": true,
+    "command_limits": true,
+    "profile_gains": true,
+    "response_error": false,
+    "response_error_diagnostic": true,
+    "motor_temperature": false,
+    "battery": false,
+    "observation_freshness": true,
+    "action_timeout": true,
+    "robot_state_timeout": true,
+    "loop_timeout": true,
+    "joint_speed": true,
+    "base_angular_speed": true,
+    "fall": true,
+    "finite_simulation": true,
+    "thrash_monitoring": true,
+    "thrash_enforcement": true
+  },
+  "fall_check": true,
+  "trace": "/output/trace.npz",
+  "motion": {
+    "start_position": [
+      0.0,
+      0.0,
+      0.79
+    ],
+    "final_position": [
+      0.0,
+      0.0,
+      0.79
+    ],
+    "max_forward_position": 0.0,
+    "minimum_pelvis_height": 0.79,
+    "fell": false,
+    "upright_at_end": true
+  },
+  "thrash": {
+    "mode": "enforce",
+    "event": null,
+    "metrics": {},
+    "sample_time_secs": null,
+    "thresholds": {
+      "weighted_rms_limit": 1.5,
+      "persistence_secs": 0.5
+    },
+    "control_path": "submission"
+  },
+  "execution": "docker_ros",
+  "policy": null
+}

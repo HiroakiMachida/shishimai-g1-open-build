@@ -1,0 +1,10 @@
+{
+  "name": "SHISHIMAI - The Lion, Reawakened | Unitree G1",
+  "caption": "Japanese lion dance on a free-standing G1. Scripted choreography + credited pretrained NVIDIA balance: 12/12 seeded 36s trials; neutral 0/12; 4/4 brief lateral-push trials. 0.45 kg torso-mounted costume; rigid visual cloak. Simulation only; not hardware-ready.",
+  "kind": "both",
+  "robot": "unitree-g1",
+  "simulator": "mujoco",
+  "challenge": "open-build-challenge",
+  "run_command": "bash run.sh",
+  "deadline": "2026-11-15T23:59:00-05:00"
+}

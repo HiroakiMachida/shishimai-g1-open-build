@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-11-05T18:24:14.710804+00:00",
+  "repository_commit": "0b9b6feb90ef17b599deb8c561d01829831784cf",
+  "g1_builder_kit_revision": "e93c49267a7b6b905c6666c8c70668f8ee7ac397",
+  "g1_builder_kit_url": "https://arena.himrobotics.com/policy-contracts/g1-builder-kit-e93c492-v1.zip",
+  "g1_builder_kit_zip_sha256": "42b235a847bd89ff2ce63bbc56ff6c157e9fb2617abe72cb4d2fff7f2038222c",
+  "menagerie_commit": "8161bba264d7fa7c99ca301e91e7fb44737676ad",
+  "nvidia_revision": "b042411fae38ee4d1af9aac82a37a1f8d14d6dd0",
+  "balance_sha256": "f645da599d4ca3d29ed273c8f4712620bb680d34977469ca3aeabe5bb9631c18",
+  "scene_sha256": "7de299cec8a21fe70374b31082cf1ef9394b0cb79d625c2604ed26d3a4180149",
+  "policy_sha256": "6da9ce9d8635051e07738e7a9f1aa39a9813b8cea3d5dba2654f63637d5531f3",
+  "versions": {
+    "mujoco": "3.3.7",
+    "numpy": "2.2.6",
+    "onnxruntime": "1.23.2",
+    "Pillow": "12.0.0",
+    "imageio": "2.37.0"
+  },
+  "physics_dt": 0.002,
+  "control_dt": 0.02,
+  "video_seed": 1000,
+  "costume_mass_kg": 0.45,
+  "base_support": "floating pelvis, no external support",
+  "compute": "local Windows simulation; local WSL Docker builds; no paid cloud resources",
+  "original_assets": {
+    "karakusa.png": "505202ad80de7c3dd76cfb155dee521ff25d95a6d78790a7ec7245bfc5ba81cd",
+    "cloak.obj": "44430649b183df2ee8b49aa25348f44d769ad1c8d8b19316beac3c97c5e74e61",
+    "ZenOldMincho-Regular.ttf": "4c051a78a21c4e8e9dccf1c754776d33f356b8cc6ef95d9b64761b9bae814b84"
+  }
+}
